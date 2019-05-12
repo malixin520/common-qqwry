@@ -34,6 +34,9 @@ public class IPLocation {
 	private  File qqwryFile;
 	
 	public IPLocation(String  filePath) throws Exception {
+		if(filePath == null || "".equals(filePath.trim())){
+			throw new IllegalArgumentException("file path could be null or empty");
+		}
 		this.qqwryFile = new File(filePath);
 		load();
 		if(enableFileWatch){
@@ -197,11 +200,10 @@ public class IPLocation {
 			return new QqwryString("",0);
 		}
 	}
-	
 
 	private static long inet_pton(String ipStr) {
-		if(ipStr == null){
-			throw new IllegalArgumentException("ip string could be null");
+		if(ipStr == null || "".equals(ipStr.trim())){
+			throw new IllegalArgumentException("ip string could be null  or empty");
 		}
 		String [] arr = ipStr.split("\\.");
 		long ip = (Long.parseLong(arr[0])  & 0xFFL) << 24 & 0xFF000000L;
